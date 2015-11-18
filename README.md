@@ -1,4 +1,4 @@
-# ImgHider
+# ChromeImgHider
 
 #### Description
 
