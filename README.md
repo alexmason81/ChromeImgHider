@@ -58,6 +58,10 @@ I made this extension in about 5 minutes (I think I spent more time on this read
 
 #### Change Log
 
+- v0.2.2 -- 11/19/2015
+
+  - Fixed an issue I missed with the last mini-update. 
+
 - v0.2.1 -- 11/19/2015
 
   - Added a feature that will display badge text of "hide" or "show" to indicate how the extension is behaving for the active tab.

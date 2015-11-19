@@ -51,6 +51,10 @@ chrome.runtime.onMessage.addListener(
     }
 
     if (request.message === "tab_changed_action") {
+      // re-intialize the page
+      // because toggling the icon when using multiple tabs will only affect the active tab
+      // and if they are on the same domain the change wont apply to all tabs unless we do this
+      ImgHiderInit();
       // use the callback and pass it the show/hide status
       sendResponse(localStorage.hideImages);
     }
