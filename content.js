@@ -46,6 +46,13 @@ chrome.runtime.onMessage.addListener(
       localStorage.hideImages = (localStorage.hideImages == 'true' ? 'false' : 'true');
       // re-intialize
       ImgHiderInit();
+      // use the callback and pass it the show/hide status
+      sendResponse(localStorage.hideImages);
+    }
+
+    if (request.message === "tab_changed_action") {
+      // use the callback and pass it the show/hide status
+      sendResponse(localStorage.hideImages);
     }
   }
 );

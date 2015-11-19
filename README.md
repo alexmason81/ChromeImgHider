@@ -58,6 +58,14 @@ I made this extension in about 5 minutes (I think I spent more time on this read
 
 #### Change Log
 
+- v0.2.1 -- 11/19/2015
+
+  - Added a feature that will display badge text of "hide" or "show" to indicate how the extension is behaving for the active tab.
+
+  - Note: I'm not sure this is the most efficient or proper way to do this and I'd like to possibly change icons instead, but as mentioned before, I am not a graphic designer so that may not happen any time soon.
+
+  - Another Note: This update may not take initially, even if you tell Chrome to reload the extension. I had to exit Chrome and then wait a few seconds after the tabs loaded before it would kick in. Again, this may need some work, but I think it's a feature worth having (even in it's current state).
+
 - v0.2 -- 11/19/2015
 
   - Changed code to use straight JavaScript
