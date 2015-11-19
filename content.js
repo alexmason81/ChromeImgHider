@@ -3,24 +3,21 @@
 var ImgHide, ImgShow, ImgHiderInit;
 
 ImgHide = function () {
-  // set all img elements to have no opacity
-  jQuery('img').css('opacity', '0');
-
-  jQuery('img').hover(
-    function () {
-      jQuery(this).fadeTo(1, 1); // fade to visible on mouse enter
-    },
-    function () {
-      jQuery(this).fadeTo(1, 0); // fade to invidible on mouse leave
-    }
-  );
+  // inject the hide stylesheet to hide images and grant hover.
+  var link = document.createElement("link");
+  link.href = chrome.extension.getURL("style-hide.css");
+  link.type = "text/css";
+  link.rel = "stylesheet";
+  link.id = "ChromeImgHider";
+  document.getElementsByTagName("head")[0].appendChild(link);
 };
 
 ImgShow = function () {
-  // set all img elements to have full opacity
-  jQuery('img').css('opacity', '1');
-
-  jQuery('img').off('mouseenter mouseleave');
+  // Remove the hide stylesheet so everything goes back to "normal"
+  var link = document.getElementById("ChromeImgHider");
+  if (null != link && typeof link != "undefined") {
+    document.getElementsByTagName("head")[0].removeChild(link);
+  }
 };
 
 
@@ -35,16 +32,16 @@ ImgHiderInit = function () {
 }
 
 
-jQuery(function () {
-  ImgHiderInit();
-});
+// initialize this beast
+ImgHiderInit();
+
 
 
 // listen for backgroun.js being clicked (icon)
 // and do something with the data received
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
-    if( request.message === "clicked_browser_action" ) {
+    if (request.message === "clicked_browser_action") {
       // toggle the localStorage
       localStorage.hideImages = (localStorage.hideImages == 'true' ? 'false' : 'true');
       // re-intialize

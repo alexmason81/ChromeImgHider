@@ -18,10 +18,6 @@ Chrome extension to hide all images by default and show images again with click 
 
 This is released under the MIT license.
 
-#### Libraries
-
-It currently depends on the jQuery 2.14 library (included) which is also under the MIT license.
-
 #### Instructions
 
 This is an unpublished Chrome extension. Follow the guide here to install: [Load the extension](https://developer.chrome.com/extensions/getstarted#unpacked)
@@ -40,13 +36,17 @@ I made this extension in about 5 minutes (I think I spent more time on this read
 
 #### Future Changes (wish list?)
 
-- Change it to use straight JavaScript (remove jQuery dependency).
+- ~~Change it to use straight JavaScript (remove jQuery dependency).~~ Done! 11/19/2015
 
 - Change it to hide images without waiting for page load (if possible).
 
 - Include background/css images in the show/hide.
 
-- Open to suggestions...
+- Get a better icon (can anyone help with this? A graphic designer I am not.)
+
+- Add a context menu to allow users to define global settings (ex: transition time, include bg images or not, etc);
+
+- Open to suggestions... (submit a change request under the issues tab/page on GitHub)
 
 #### Who Am I?
 
@@ -55,3 +55,13 @@ I made this extension in about 5 minutes (I think I spent more time on this read
 - Website: [Alex's Antidote](http://alexsantidote.com)
 
 - About Me: Just another application developer.
+
+#### Change Log
+
+- v0.2 -- 11/19/2015
+
+  - Changed code to use straight JavaScript
+
+  - Removed jQuery library
+
+  - Added CSS file for img styles for hiding and transitioning on hover.
