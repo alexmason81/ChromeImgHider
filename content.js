@@ -3,8 +3,13 @@
 var ImgHider = {
 
   status: true, // true == hide, false == show
+  interval: 10000, // default to 30 seconds
 
   hide: function () {
+    // make sure the css isn't already linked (don't need multiple linking as that breaks stuff)
+    if (document.getElementById("ChromeImgHider")) {
+      return; // it's already there
+    }
     // inject the hide stylesheet to hide images and grant hover.
     var link = document.createElement("link");
     link.href = chrome.extension.getURL("style-hide.css");
@@ -61,6 +66,9 @@ chrome.runtime.onMessage.addListener(
     if (request.message === "page_loaded") {
       // initialize this beast
       ImgHider.init();
+      // refresh the setting every 10 seconds -- to account for dynamic changes in the page
+      // disabled for now, probably not needed, but leaving the code here until I can decide after more testing.
+      // setInterval(function(){ ImgHider.refresh(); }, ImgHider.interval);
       // use the callback and pass it the show/hide status
       sendResponse(ImgHider.status);
     }

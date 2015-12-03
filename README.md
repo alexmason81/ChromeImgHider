@@ -62,6 +62,12 @@ I made this extension in about 5 minutes (I think I spent more time on this read
 
 #### Change Log
 
+- v0.2.4 -- 12/03/2015
+
+  - Fixed an issue where it showed "hide" on non-pages or pages that disallow extensions (like Chrome Web Store)
+
+  - Fixed an issue that caused the stylesheet to be included multiple times, thus breaking the toggle to show.
+
 - v0.2.3 -- 12/02/2015
 
   - New Icon thanks to my good buddy Jake Farr.

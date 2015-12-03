@@ -3,7 +3,11 @@
 var setBadgeText;
 
 setBadgeText = function (status) {
-  chrome.browserAction.setBadgeText({text:(status ? "show" : "hide")});
+  var badgeText = status ? "show" : "hide";
+  if (typeof status != 'boolean') {
+    badgeText = '';
+  }
+  chrome.browserAction.setBadgeText({text:(badgeText)});
 }
 
 // add a listener to initialize the ImgHider when the page is loaded/updated
