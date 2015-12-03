@@ -3,8 +3,18 @@
 var setBadgeText;
 
 setBadgeText = function (status) {
-  chrome.browserAction.setBadgeText({text:(status == 'true' ? "hide" : "show")});
+  chrome.browserAction.setBadgeText({text:(status ? "show" : "hide")});
 }
+
+// add a listener to initialize the ImgHider when the page is loaded/updated
+chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
+  chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+    var activeTab = tabs[0],
+        message = "page_loaded";
+    chrome.tabs.sendMessage(activeTab.id, {"message": message}, setBadgeText);
+  });
+});
+
 
 // Called when the user clicks on the browser action.
 // sends info to content.js

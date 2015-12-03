@@ -1,4 +1,4 @@
-# ChromeImgHider
+# Image Hider (Chrome Extension)
 
 #### Description
 
@@ -13,6 +13,8 @@ Chrome extension to hide all images by default and show images again with click 
 - Uses HTML5 local storage to keep track of the image hide status (based on icon clicks).
 
 - When images are hidden, you can mouse-over them to show them temporarily.
+
+- NOTE: this extension does **not** block the images from being loaded. It does **not** save on data.
 
 #### License
 
@@ -38,13 +40,15 @@ I made this extension in about 5 minutes (I think I spent more time on this read
 
 - ~~Change it to use straight JavaScript (remove jQuery dependency).~~ Done! 11/19/2015
 
+- ~~Get a better icon (can anyone help with this? A graphic designer I am not.)~~ Done! 12/02/2015
+
 - Change it to hide images without waiting for page load (if possible).
 
 - Include background/css images in the show/hide.
 
-- Get a better icon (can anyone help with this? A graphic designer I am not.)
+- Include videos and perhaps other media in the show/hide.
 
-- Add a context menu to allow users to define global settings (ex: transition time, include bg images or not, etc);
+- Add a context menu to allow users to define global settings (ex: transition time, include background images or not, etc);
 
 - Open to suggestions... (submit a change request under the issues tab/page on GitHub)
 
@@ -58,9 +62,17 @@ I made this extension in about 5 minutes (I think I spent more time on this read
 
 #### Change Log
 
+- v0.2.3 -- 12/02/2015
+
+  - New Icon thanks to my good buddy Jake Farr.
+
+  - Some reworking of the code to fix a few minor issues.
+
+  - Modified the manifest a bit, prepared to publish on Google Play.
+
 - v0.2.2 -- 11/19/2015
 
-  - Fixed an issue I missed with the last mini-update. 
+  - Fixed an issue I missed with the last mini-update.
 
 - v0.2.1 -- 11/19/2015
 
