@@ -1,10 +1,11 @@
 {
   "manifest_version": 2,
   "name": "Image Hider",
-  "version": "0.2.4",
+  "version": "0.2.5",
 
   "description": "Chrome extension to hide all images by default and show images again with click of icon.",
   "author": "Alex Mason",
+  "homepage_url": "https://chrome.google.com/webstore/detail/image-hider/fdjghmbmljbhojdgegmhhbkhgoacgdcb",
 
   "icons": {
     "16": "icons/icon16.png",
@@ -27,12 +28,16 @@
   ],
 
   "background": {
-    "persistent": false,
     "scripts": ["background.js"]
   },
 
   "browser_action": {
     "default_title": "Image Hider",
     "default_icon": "icon.png"
-  }
+  },
+
+  "permissions": [
+    "contextMenus",
+    "storage"
+  ]
 }
