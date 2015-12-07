@@ -4,7 +4,7 @@ var setBadgeText, sendToContent, MESSAGE_CONSTANTS = {};
 
 // callback for udpating the badge text
 setBadgeText = function (status) {
-  var badgeText = status ? 'show' : 'hide';
+  var badgeText = status ? 'hide' : 'show';
   if (typeof status != 'boolean') {
     badgeText = '';
   }

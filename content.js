@@ -71,7 +71,7 @@ var ImgHider = {
   toggle: function () {
     this.status = !this.status;
     this.persist();
-    this.status ? this.show() : this.hide();
+    this.status ? this.hide() : this.show();
   },
 
   persist: function () {
@@ -87,7 +87,7 @@ var ImgHider = {
     } else {
       this.status = JSON.parse(localStorage.hideImages);
     }
-    this.status ? this.show() : this.hide();
+    this.status ? this.hide() : this.show();
   }
 
 };

@@ -14,7 +14,7 @@ Chrome extension to hide all images by default and show images again with click 
 
 - When images are hidden, you can mouse-over them to show them temporarily.
 
-- Hide background images by toggling an extension-wide setting (applys to all domains, not individually). This option can be toggled by right-clicking on the extension icon. 
+- Hide background images by toggling an extension-wide setting (applys to all domains, not individually). This option can be toggled by right-clicking on the extension icon.
 
 - NOTE: this extension does **not** block the images from being loaded. It does **not** save on data.
 
@@ -63,6 +63,10 @@ I made this extension in about 5 minutes (I think I spent more time on this read
 - About Me: Just another application developer.
 
 #### Change Log
+
+- v0.2.6 -- 12/07/2015
+
+  - Fixed the default show/hide. Somehow I mixed it up so it showed by default. Oops! All better now!
 
 - v0.2.5 -- 12/07/2015
 
