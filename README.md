@@ -22,7 +22,23 @@ Chrome extension to hide all images by default and show images again with click 
 
 This is released under the MIT license.
 
-#### Instructions
+#### permissions
+
+This extension needs permissions to access HTTP and HTTPs urls. Why? Because without that it wont be able to identify the images (and background images) on the websites you visit in order to hide them.
+
+The Google Chrome Web Store has a really scary warning when you try to install the extension. Regarding adding the extension, it reads as follows: "Read and change all your data on the websites you visit".
+
+See, doesn't that sound scary? Well don't be alarmed. Google's permissions explanations are a bit vague. This extension is not doing anything harmful. It is only modifying the style of each page you visit to show or hide images. That is all.
+
+No need to be scared. Besides, the source is all right here, so take a look for yourself! :)
+
+#### Installation Instructions
+
+**Chrome Web Store Installation**
+
+Go to the Web Store page for the extension ([Click Here!](https://chrome.google.com/webstore/detail/image-hider/fdjghmbmljbhojdgegmhhbkhgoacgdcb)) and then click "Add to Chrome" button, then click "OK" on the confirmation pop-up.
+
+**Manual Installation**
 
 This is an unpublished Chrome extension. Follow the guide here to install: [Load the extension](https://developer.chrome.com/extensions/getstarted#unpacked)
 
@@ -62,7 +78,19 @@ I made this extension in about 5 minutes (I think I spent more time on this read
 
 - About Me: Just another application developer.
 
+#### F.A.Q.
+
+- Q: Why did you start the versioning at v0.2?
+
+  A: Because I wanted to!
+
 #### Change Log
+
+- v0.2.7 -- 12/07/2015
+
+  - Modified the patern matching in the manifest so it only targets http and https urls. I did this so it will stop showing the "Allow access to file URLs" checkbox on the chrome://extensions page (this was causing concern for some users).
+
+  - Added an explanation to the readme about the permissions.
 
 - v0.2.6 -- 12/07/2015
 
