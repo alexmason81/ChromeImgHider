@@ -6,13 +6,13 @@ var ImgHider = {
   interval: 10000, // default to 30 seconds
 
   hideBgImages: function (item) {
-    var yoda = item.hideBgImages; // do or do not, there is no try
-
-    // add a background hiding class to all elements with a background image
-    allEs = document.getElementsByTagName('*');
+    var allEs, yoda = item.hideBgImages; // do or do not, there is no try
 
     // optimizing for speed rather than elegance
     if (yoda) {
+      // add a background hiding class to all elements with a background image
+      allEs = document.getElementsByTagName('*');
+
       for (var key in allEs) {
         var t1, t2, t3, t4;
         if (allEs.hasOwnProperty(key)) {
@@ -27,38 +27,48 @@ var ImgHider = {
         }
       }
     } else {
-      for (var key in allEs) {
-        if (allEs.hasOwnProperty(key)) {
-          allEs[key].classList.remove('ChromeBgHider');
+      // remove background hiding class from all elements that have it
+      allEs = document.getElementsByClassName('ChromeBgHider');
+
+      // iterate backwards because we're effectively removing elements from the collection
+      // and going forwards causes it to reindex and we'll miss some that way.
+      for (var i = allEs.length-1; i > -1; i--) {
+        try {
+          allEs[i].classList.remove('ChromeBgHider');
+        } catch (e) {
+          // probably not an actual element
+          // console.log('for element index of ' + i + ', we have the following error: ' + e);
+          // this try-catch wrapper might not be necessary, but I haven't had
+          // time to properly test it without it and I don't think it hurts to be here for now.
         }
       }
     }
   },
 
   hide: function () {
+
     // only hide bg images if the prefernce is checked
     chrome.storage.sync.get('hideBgImages', this.hideBgImages);
 
     // make sure the css isn't already linked (don't need multiple linking as that breaks stuff)
-    if (document.getElementById("ChromeImgHider")) {
+    if (document.getElementById('ChromeImgHider')) {
       return; // it's already there
     }
-    var link, allEs;
 
     // inject the hide stylesheet to hide images and grant hover.
-    link = document.createElement("link");
-    link.href = chrome.extension.getURL("style-hide.css");
-    link.type = "text/css";
-    link.rel = "stylesheet";
-    link.id = "ChromeImgHider";
-    document.getElementsByTagName("head")[0].appendChild(link);
+    var link = document.createElement('link');
+    link.href = chrome.extension.getURL('style-hide.css');
+    link.type = 'text/css';
+    link.rel = 'stylesheet';
+    link.id = 'ChromeImgHider';
+    document.getElementsByTagName('head')[0].appendChild(link);
   },
 
   show: function () {
-    // Remove the hide stylesheet so everything goes back to "normal"
-    var link = document.getElementById("ChromeImgHider");
+    // Remove the hide stylesheet so everything goes back to 'normal'
+    var link = document.getElementById('ChromeImgHider');
     if (null !== link && link !== undefined) {
-      document.getElementsByTagName("head")[0].removeChild(link);
+      document.getElementsByTagName('head')[0].removeChild(link);
     }
   },
 
@@ -98,7 +108,7 @@ var ImgHider = {
 chrome.runtime.onMessage.addListener(
   function (request, sender, sendResponse) {
     switch (request.message) {
-      case "page_loaded":
+      case 'page_loaded':
         // initialize this beast
         ImgHider.init();
         // refresh the setting every 10 seconds -- to account for dynamic changes in the page
@@ -108,14 +118,14 @@ chrome.runtime.onMessage.addListener(
         sendResponse(ImgHider.status);
         break;
 
-      case "clicked_browser_action":
+      case 'clicked_browser_action':
         // toggle the status and show/hide
         ImgHider.toggle();
         // use the callback and pass it the show/hide status
         sendResponse(ImgHider.status);
         break;
 
-      case "tab_changed_action":
+      case 'tab_changed_action':
         // trigger a refresh
         // because toggling the icon when using multiple tabs will only affect the active tab
         // and if they are on the same domain the change wont apply to all tabs unless we do this

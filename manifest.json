@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Image Hider",
-  "version": "0.2.7",
+  "version": "0.2.8",
 
   "description": "Chrome extension to hide all images by default and show images again with click of icon.",
   "author": "Alex Mason",
@@ -20,7 +20,8 @@
         "http://*/*",
         "https://*/*"
       ],
-      "js": ["content.js"]
+      "js": ["content.js"],
+      "all_frames": true
     }
   ],
 

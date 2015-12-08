@@ -13,10 +13,12 @@ setBadgeText = function (status) {
 
 
 // callback for sending messages to the content script
-sendToContent = function (tab, message) {
+sendToContent = function (message) {
   chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
     var activeTab = tabs[0];
-    chrome.tabs.sendMessage(activeTab.id, { message: message }, setBadgeText);
+    if (activeTab) {
+      chrome.tabs.sendMessage(activeTab.id, { message: message }, setBadgeText);
+    }
   });
 };
 
@@ -50,7 +52,7 @@ chrome.storage.sync.get(null, function (prefs) {
           tmp[info.menuItemId] = info.checked;
           chrome.storage.sync.set(tmp, function () {
             // trigger the page loaded message
-            sendToContent(tab, MESSAGE_CONSTANTS.page_loaded);
+            sendToContent(MESSAGE_CONSTANTS.page_loaded);
           });
           break;
       }
@@ -67,19 +69,18 @@ chrome.storage.sync.get(null, function (prefs) {
 });
 
 
-
 // add a listener to initialize the ImgHider when the page is loaded/updated
 chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
-  sendToContent(tab, MESSAGE_CONSTANTS.page_loaded);
+  sendToContent(MESSAGE_CONSTANTS.page_loaded);
 });
 
 // Called when the user clicks on the browser action.
 // sends info to content.js
 chrome.browserAction.onClicked.addListener(function(tab) {
-  sendToContent(tab, MESSAGE_CONSTANTS.clicked_browser_action);
+  sendToContent(MESSAGE_CONSTANTS.clicked_browser_action);
 });
 
 // add listener to change badge text when the tab changes
 chrome.tabs.onActivated.addListener(function(tab) {
-  sendToContent(tab, MESSAGE_CONSTANTS.tab_changed_action);
+  sendToContent(MESSAGE_CONSTANTS.tab_changed_action);
 });

@@ -22,7 +22,7 @@ Chrome extension to hide all images by default and show images again with click 
 
 This is released under the MIT license.
 
-#### permissions
+#### Permissions
 
 This extension needs permissions to access HTTP and HTTPs urls. Why? Because without that it wont be able to identify the images (and background images) on the websites you visit in order to hide them.
 
@@ -85,6 +85,12 @@ I made this extension in about 5 minutes (I think I spent more time on this read
   A: Because I wanted to!
 
 #### Change Log
+
+- v0.2.8 -- 12/08/2015
+
+  - Slightly improved handling of background images.
+
+  - Modified image styles to account for show/hide on some images that were being missed.
 
 - v0.2.7 -- 12/07/2015
 

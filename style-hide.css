@@ -1,13 +1,13 @@
 img {
-  opacity: 0;
+  opacity: 0 !important;
   -webkit-transition: opacity 0.33s ease-in-out;
   -moz-transition: opacity 0.33s ease-in-out;
   -o-transition: opacity 0.33s ease-in-out;
   transition: opacity 0.33s ease-in-out;
 }
 
-img:hover {
-  opacity: 1;
+*:hover > img, img:hover {
+  opacity: 1 !important;
 }
 
 /* can't use this right now, it causes crazy glitch effects with bacgkround's that use image maps */
