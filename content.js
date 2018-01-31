@@ -2,7 +2,7 @@
 
 var ImgHider = {
 
-  status: true, // true == hide, false == show
+  status: false, // true == hide, false == show
   interval: 10000, // default to 30 seconds
 
   hideBgImages: function (item) {
