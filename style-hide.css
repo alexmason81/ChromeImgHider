@@ -1,4 +1,4 @@
-img {
+img:not(:hover) {
   opacity: 0 !important;
   -webkit-transition: opacity 0.33s ease-in-out;
   -moz-transition: opacity 0.33s ease-in-out;
@@ -9,16 +9,6 @@ img {
 *:hover > img, img:hover {
   opacity: 1 !important;
 }
-
-/* can't use this right now, it causes crazy glitch effects with bacgkround's that use image maps */
-/*
-.ChromeBgHider {
-  -webkit-transition:background 0.33s ease-in;
-  -moz-transition:background 0.33s ease-in;
-  -o-transition:background 0.33s ease-in;
-  transition:background 0.33s ease-in;
-}
-*/
 
 .ChromeBgHider:not(:hover) {
   background: transparent !important;

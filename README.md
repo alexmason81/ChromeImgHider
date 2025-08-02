@@ -74,17 +74,15 @@ I made this extension in about 5 minutes (I think I spent more time on this read
 
 - Name: Alex Mason
 
-- Website: [Alex's Antidote](http://alexsantidote.com)
+- Website: [Alex's Antidote](https://www.linkedin.com/in/alexmason81/)
 
-- About Me: Just another application developer.
-
-#### F.A.Q.
-
-- Q: Why did you start the versioning at v0.2?
-
-  A: Because I wanted to!
+- About Me: I'm currently working as a Software Architect Manager at MPHI. I don't have much time for side/hobby projects these days (haven't for a while), so I am slow to update things, sorry.
 
 #### Change Log
+
+- v0.3.0 -- 08/01/2025
+
+  - Migrated to Manifest version 3 to meet new Google requirements.
 
 - v0.2.8 -- 12/08/2015
 
