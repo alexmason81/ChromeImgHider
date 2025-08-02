@@ -1,86 +1,71 @@
-// background.js
+// background.js - Manifest V3 (Service Worker)
 
-var setBadgeText, sendToContent, MESSAGE_CONSTANTS = {};
+const MESSAGE_CONSTANTS = {
+  PAGE_LOADED: 'page_loaded',
+  TAB_CHANGED: 'tab_changed_action',
+  ICON_CLICKED: 'clicked_browser_action',
+};
 
-// callback for udpating the badge text
-setBadgeText = function (status) {
-  var badgeText = status ? 'hide' : 'show';
-  if (typeof status != 'boolean') {
-    badgeText = '';
+// Utility to update the badge text
+function setBadgeText(status) {
+  const text = typeof status === 'boolean' ? (status ? 'hide' : 'show') : '';
+  chrome.action.setBadgeText({ text });
+}
+
+// Send a message to the active tab
+async function sendToActiveTab(message) {
+  const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+  if (tab && tab.id) {
+    chrome.tabs.sendMessage(tab.id, { message }, (response) => {
+      setBadgeText(response);
+    });
   }
-  chrome.browserAction.setBadgeText({text:(badgeText)});
-};
+}
 
+// Initialize the extension's context menu
+async function initContextMenu() {
+  const { hideBgImages } = await chrome.storage.sync.get('hideBgImages');
 
-// callback for sending messages to the content script
-sendToContent = function (message) {
-  chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-    var activeTab = tabs[0];
-    if (activeTab) {
-      chrome.tabs.sendMessage(activeTab.id, { message: message }, setBadgeText);
-    }
-  });
-};
+  await chrome.contextMenus.removeAll();
 
-MESSAGE_CONSTANTS.page_loaded = 'page_loaded';
-MESSAGE_CONSTANTS.tab_changed_action = 'tab_changed_action';
-MESSAGE_CONSTANTS.clicked_browser_action = 'clicked_browser_action';
-
-// get the storage data and load the context menu with related listeners and etc.
-chrome.storage.sync.get(null, function (prefs) {
-  // have to do all the context menu setup here because of the callback
-  // used by the storage sync. I haven't found a better way to get the value
-  // without waiting for the callback, unfortunately.
-
-  // remvove existing context menus (so fresh and so clean, clean)
-  chrome.contextMenus.removeAll();
-
-  // create our context menus
   chrome.contextMenus.create({
     id: 'hideBgImages',
     title: 'Hide Background Images?',
     type: 'checkbox',
-    contexts: ['browser_action'],
-    checked: prefs.hideBgImages
+    contexts: ['action'],
+    checked: Boolean(hideBgImages),
   });
+}
 
-  // add a click listner for our menu items
-  chrome.contextMenus.onClicked.addListener(function(info, tab) {
-      switch (info.menuItemId) {
-        case 'hideBgImages':
-          var tmp = {};
-          tmp[info.menuItemId] = info.checked;
-          chrome.storage.sync.set(tmp, function () {
-            // trigger the page loaded message
-            sendToContent(MESSAGE_CONSTANTS.page_loaded);
-          });
-          break;
-      }
-  });
-
-  // add a listener for if the setting is changed in the options page
-  chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
-    console.log('pref changed');
-    if (request.method == 'prefChanged'  && request.prefName == 'hideBgImages') {
-      chrome.contextMenus.update('hideBgImages', { checked: request.value });
-    }
-  });
-
+// Listen for context menu changes
+chrome.contextMenus.onClicked.addListener(async (info, tab) => {
+  if (info.menuItemId === 'hideBgImages') {
+    await chrome.storage.sync.set({ hideBgImages: info.checked });
+    sendToActiveTab(MESSAGE_CONSTANTS.PAGE_LOADED);
+  }
 });
 
-
-// add a listener to initialize the ImgHider when the page is loaded/updated
-chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
-  sendToContent(MESSAGE_CONSTANTS.page_loaded);
+// Listen for changes from content or options page
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  if (request.method === 'prefChanged' && request.prefName === 'hideBgImages') {
+    chrome.contextMenus.update('hideBgImages', { checked: request.value });
+  }
 });
 
-// Called when the user clicks on the browser action.
-// sends info to content.js
-chrome.browserAction.onClicked.addListener(function(tab) {
-  sendToContent(MESSAGE_CONSTANTS.clicked_browser_action);
+// Trigger initialization and badge updates on events
+chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+  if (changeInfo.status === 'complete') {
+    sendToActiveTab(MESSAGE_CONSTANTS.PAGE_LOADED);
+  }
 });
 
-// add listener to change badge text when the tab changes
-chrome.tabs.onActivated.addListener(function(tab) {
-  sendToContent(MESSAGE_CONSTANTS.tab_changed_action);
+chrome.tabs.onActivated.addListener(() => {
+  sendToActiveTab(MESSAGE_CONSTANTS.TAB_CHANGED);
 });
+
+chrome.action.onClicked.addListener(() => {
+  sendToActiveTab(MESSAGE_CONSTANTS.ICON_CLICKED);
+});
+
+// Initialize everything on service worker startup
+initContextMenu();
